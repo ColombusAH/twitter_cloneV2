@@ -23,21 +23,23 @@ const UserSchema: Schema = new Schema(
   {
     _id: {
       type: String,
-      default: shortid.generate()
+      default: shortid.generate(),
     },
     username: {
       type: String,
       lowercase: true,
       required: [true, "can't be blank"],
       match: [/^[a-zA-Z0-9]+$/, 'is invalid'],
-      index: true
+      index: true,
+      unique: true
     },
     email: {
       type: String,
       lowercase: true,
       required: [true, "can't be blank"],
       match: [/\S+@\S+\.\S+/, 'is invalid'],
-      index: true
+      index: true,
+      unique: true
     },
     lastLogin: { type: Date, default: Date.now() },
 
