@@ -15,6 +15,8 @@ export interface IUser extends Document {
   toAuthJSON: () => {};
   hash: string;
   token: string;
+  registrationDate: Date;
+  lastLogin: Date;
 }
 
 const UserSchema: Schema = new Schema(
@@ -37,6 +39,7 @@ const UserSchema: Schema = new Schema(
       match: [/\S+@\S+\.\S+/, 'is invalid'],
       index: true
     },
+    lastLogin: { type: Date, default: Date.now() },
 
     image: { type: String, required: false },
     hash: { type: String, required: true },
@@ -83,9 +86,12 @@ UserSchema.methods.generateJWT = function() {
 UserSchema.methods.toAuthJSON = function() {
   return {
     username: this.username,
+    email: this.email,
     _id: this._id,
     token: this.generateJWT(),
-    image: this.image
+    image: this.image,
+    registrationDate: this.createdAt,
+    lastLogin: this.lastLogin
   };
 };
 

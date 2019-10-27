@@ -8,6 +8,7 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import * as passport from './config/passport';
 import router from './routes';
+import { ErrorMiddleware } from './middlewares/errorMiddleware.middleware';
 
 const app = express();
 
@@ -32,6 +33,9 @@ app.get('/', (req, res) => {
 
 //register the routes of the app.
 app.use(router);
+
+// register error middleware
+app.use(ErrorMiddleware);
 
 const PORT = config.PORT;
 
