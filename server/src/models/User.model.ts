@@ -1,4 +1,5 @@
 import mongoose, { Schema, Document } from 'mongoose';
+import shortid from 'shortid';
 import uniqueValidator from 'mongoose-unique-validator';
 import CryptoJS from 'crypto-js';
 import jwt from 'jsonwebtoken';
@@ -18,6 +19,10 @@ export interface IUser extends Document {
 
 const UserSchema: Schema = new Schema(
   {
+    _id: {
+      type: String,
+      default: shortid.generate()
+    },
     username: {
       type: String,
       lowercase: true,

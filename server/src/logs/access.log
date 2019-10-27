@@ -86,3 +86,4 @@
 ::1 - - [27/Oct/2019:12:06:52 +0000] "POST /api/auth/register HTTP/1.1" 409 31 "http://localhost:4200/auth/register" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36"
 ::1 - - [27/Oct/2019:12:07:25 +0000] "POST /api/auth/login HTTP/1.1" 200 269 "http://localhost:4200/auth/login" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36"
 ::1 - - [27/Oct/2019:12:12:21 +0000] "POST /api/auth/login HTTP/1.1" 200 269 "http://localhost:4200/auth/login" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36"
+::1 - - [27/Oct/2019:16:50:34 +0000] "POST /api/auth/register HTTP/1.1" 200 223 "http://localhost:4200/auth/register" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36"
