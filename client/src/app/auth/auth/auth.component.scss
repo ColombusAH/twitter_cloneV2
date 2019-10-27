@@ -1,0 +1,33 @@
+.auth-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 3px black solid;
+  width: 100%;
+  height: 100%;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 25em;
+  margin-top: -10em;
+}
+
+.full-width {
+  width: 100%;
+  margin-top: 2em;
+}
+
+.error-card {
+  width: 90%;
+  background-color: #ff434367;
+  margin-bottom: 2em;
+}
+
+.btn-wrapper {
+  display: flex;
+  justify-content: space-between;
+}

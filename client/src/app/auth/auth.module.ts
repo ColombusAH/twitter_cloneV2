@@ -1,0 +1,19 @@
+import { CoreModule } from './../core/core.module';
+
+import { MaterialModule } from './../material/material.module';
+
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+import { AuthRoutingModule } from './auth-routing.module';
+import { AuthComponent } from './auth/auth.component';
+
+@NgModule({
+  declarations: [AuthComponent],
+  imports: [
+    CommonModule,
+    AuthRoutingModule,
+    CoreModule
+  ]
+})
+export class AuthModule {}

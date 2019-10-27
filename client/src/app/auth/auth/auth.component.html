@@ -1,0 +1,61 @@
+<div class="auth-wrapper">
+    <mat-card class="box">
+        <mat-card-header>
+            <mat-card-title>{{authType | titlecase}}</mat-card-title>
+        </mat-card-header>
+
+
+        <mat-card *ngIf="authFailed" class="error-card">{{errorMessage}}</mat-card>
+
+
+        <form (ngSubmit)="onSubmit()" [formGroup]="authForm">
+            <mat-card-content>
+
+                <mat-form-field class="full-width">
+                    <input matInput placeholder="Email" type="email" name="email" formControlName="email">
+                    <mat-error *ngIf="emailControl.errors?.required">Email is required</mat-error>
+                    <mat-error *ngIf="emailControl.dirty && emailControl.errors?.email">Email not valid
+                    </mat-error>
+                </mat-form-field>
+
+                <span *ngIf="isRegisterMode">
+                    <mat-form-field class="full-width">
+                        <input matInput placeholder="Username" type="text" name="username" formControlName="username">
+                        <mat-error *ngIf="usernameControl.errors?.required">Username is required</mat-error>
+                    </mat-form-field>
+                </span>
+
+                <mat-form-field class="full-width">
+                    <input matInput placeholder="Password" type="password" name="password" formControlName="password">
+                    <mat-error *ngIf="passwordControl.errors?.required">Password is required</mat-error>
+                    <mat-error
+                        *ngIf="isRegisterMode && passwordControl.dirty && passwordControl.errors?.passwordNotValid">
+                        Password need at least 1 UpperLetter &
+                        1 number
+                    </mat-error>
+                </mat-form-field>
+
+                <span *ngIf="isRegisterMode">
+                    <mat-form-field class="full-width">
+                        <input matInput placeholder="Retype Password" type="password" name="confirmPassword"
+                            formControlName="confirmPassword">
+                        <mat-error *ngIf="confirmPasswordControl.dirty && authForm.errors?.notMatch">
+                            Passwords unmatch</mat-error>
+                        <mat-error *ngIf="confirmPasswordControl.errors?.required">Password is required
+                        </mat-error>
+
+                    </mat-form-field>
+                </span>
+
+            </mat-card-content>
+            <div class="btn-wrapper">
+                <button type="submit" [disabled]="!authForm.valid" mat-stroked-button
+                    color="accent">{{authType}}</button>
+                <button *ngIf="isRegisterMode" mat-stroked-button color="primary" [routerLink]="['/auth/login']">Have an
+                    account</button>
+                <button *ngIf="!isRegisterMode" mat-stroked-button color="primary"
+                    [routerLink]="['/auth/register']">Need an account?</button>
+            </div>
+        </form>
+    </mat-card>
+</div>

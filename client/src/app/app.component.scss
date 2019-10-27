@@ -1,0 +1,28 @@
+.mat-toolbar-single-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+mat-sidenav-container,
+mat-sidenav,
+mat-sidenav-content {
+  height: 100%;
+}
+
+mat-list-item mat-icon {
+  margin-right: 0.5em;
+}
+
+.link-active {
+  color: wheat;
+}
+
+.wrapper {
+  width: 99wh;
+  height: 98vh;
+}
+
+main {
+  width: 100%;
+  height: 100%;
+}
