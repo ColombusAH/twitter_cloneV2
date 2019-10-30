@@ -10,6 +10,11 @@ export async function findUserById(id: string) {
   return user;
 }
 
+export async function findUserByShordId(id: string) {
+  const user = await User.findOne({ shortid: id });
+  return user;
+}
+
 export async function findUserByUsername(username: string) {
   const user: IUser = await User.findOne({ username });
   return user;
@@ -31,3 +36,4 @@ export async function createUser(
   user = await user.save();
   return user;
 }
+

@@ -1,21 +1,31 @@
-import mongoose, { Schema, Document } from 'mongoose';
+import { ITweet } from './../dtos/tweets/Tweet.dto';
+import mongoose from 'mongoose';
 import shortid from 'shortid';
-import uniqueValidator from 'mongoose-unique-validator';
 
-export interface ITweet extends Document {
-  id: string;
-  author: string;
-  body: string;
-  starCount: number;
+export interface ITweet extends mongoose.Document {
+  _id: string;
+  shortid: string;
+  authorDetails: {
+    _id: string;
+    shortid: string;
+    image: string;
+  };
+  text: string;
+  stars: number;
   createdAt: Date;
+  starredByMe?: boolean;
 }
 
-const TweetSchema: Schema = new Schema(
+const TweetSchema: mongoose.Schema = new mongoose.Schema(
   {
-    _id: { type: String, default: shortid.generate() },
-    author: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-    body: { type: String, required: true, maxlength: 240 },
-    starCount: { type: Number, default: 0 }
+    shortid: { type: String, default: shortid.generate(), index: true },
+    authorDetails: {
+      _id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+      shortid: String,
+      image: String
+    },
+    text: { type: String, required: true, maxlength: 240 },
+    stars: { type: Number, default: 0 }
   },
   { timestamps: true }
 );

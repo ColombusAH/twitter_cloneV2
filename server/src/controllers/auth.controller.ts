@@ -5,6 +5,7 @@ import HttpStatus from 'http-status-codes';
 import { Request, Response, NextFunction } from 'express';
 import * as service from '../services/user.service';
 
+// requiremen 2
 function login(req: Request, res: Response) {
   passport.authenticate(
     'local',
@@ -27,6 +28,7 @@ function login(req: Request, res: Response) {
   )(req, res);
 }
 
+// requirement 1
 async function register(req: Request, res: Response, next: NextFunction) {
   try {
     const { username, password, email, image } = req.body;

@@ -6,14 +6,19 @@ import userForRegister from '../../dtos/userDtos/userForRegister.dto';
 const userForRegisterSchema = Joi.object({
   email: Joi.string()
     .email()
-    .required(),
-  password: Joi.string().required(),
+    .required()
+    .exist(),
+  password: Joi.string()
+    .required()
+    .exist(),
   confirmPassword: Joi.any()
     .equal(Joi.ref('password'))
-    .required(),
+    .required()
+    .exist(),
   username: Joi.string()
     .alphanum()
     .required()
+    .exist()
 });
 
 export default function validateRegister(

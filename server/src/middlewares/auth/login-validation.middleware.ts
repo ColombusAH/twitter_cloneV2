@@ -6,8 +6,11 @@ import IUserForLogin from '../../dtos/userDtos/userForLogin.dto';
 const userForloginSchema = Joi.object({
   email: Joi.string()
     .email()
-    .required(),
-  password: Joi.string().required()
+    .required()
+    .exist(),
+  password: Joi.string()
+    .required()
+    .exist()
 });
 
 export default function validateLogin(
@@ -26,7 +29,5 @@ export default function validateLogin(
     });
     return res.status(HttpStatus.BAD_REQUEST).send(errorNessages);
   }
-  console.log(value);
-
   next();
 }

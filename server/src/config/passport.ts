@@ -1,6 +1,7 @@
 import passport from 'passport';
 import passportLocal from 'passport-local';
 import passportJwt from 'passport-jwt';
+
 import * as config from '../config';
 import * as service from '../services/user.service';
 
@@ -35,8 +36,34 @@ export function initializePassport() {
         jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
         secretOrKey: config.SECRET
       },
-      (jwtPayload, done) => {
-        done(null, service.findUserById(jwtPayload.id));
+      async (jwtPayload, done) => {
+        try {
+          const user = await service.findUserById(jwtPayload.id);
+          if (!user) {
+            done(null, false);
+          }
+          done(null, user);
+        } catch (error) {
+          done(error);
+        }
+      }
+    )
+  );
+
+  passport.use(
+    'jwt-optional',
+    new JwtStrategy(
+      {
+        jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+        secretOrKey: config.SECRET
+      },
+      async (jwtPayload, done) => {
+        try {
+          const user = await service.findUserById(jwtPayload.id);
+          done(null, user);
+        } catch (error) {
+          done(error);
+        }
       }
     )
   );

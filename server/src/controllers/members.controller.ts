@@ -1,8 +1,9 @@
+import { Request, Response, NextFunction } from 'express';
 import { OK } from 'http-status-codes';
 import { NotFoundError } from './../errors/httpErrors';
-import { Request, Response, NextFunction } from 'express';
 import * as userService from '../services/user.service';
 
+// requirement 3
 export async function getMemberByID(
   req: Request,
   res: Response,
@@ -19,3 +20,5 @@ export async function getMemberByID(
     next(error);
   }
 }
+
+// requirement 4 : get member tweets by ID

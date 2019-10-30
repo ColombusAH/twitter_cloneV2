@@ -6,9 +6,12 @@ import jwt from 'jsonwebtoken';
 import * as config from '../config';
 
 export interface IUser extends Document {
+  _id: string;
+  shortid: string;
   username: string;
   email: string;
   image: string;
+  starred: string[];
   validPassword: (password: string) => boolean;
   generateJWT: () => string;
   setPassword: (password: string) => void;
@@ -21,9 +24,10 @@ export interface IUser extends Document {
 
 const UserSchema: Schema = new Schema(
   {
-    _id: {
+    shortid: {
       type: String,
       default: shortid.generate(),
+      index: true
     },
     username: {
       type: String,
@@ -41,9 +45,10 @@ const UserSchema: Schema = new Schema(
       index: true,
       unique: true
     },
+    starred: [{ type: Schema.Types.ObjectId, ref: 'Tweet' }],
     lastLogin: { type: Date, default: Date.now() },
 
-    image: { type: String, required: false },
+    image: { type: String, required: false, default: '' },
     hash: { type: String, required: true },
     salt: { type: String, required: true }
   },
@@ -77,6 +82,7 @@ UserSchema.methods.generateJWT = function() {
   return jwt.sign(
     {
       id: this._id,
+      shortid: this.shortid,
       username: this.username,
       // tslint:disable-next-line: radix
       exp: parseInt(`${exp.getTime() / 1000}`)
