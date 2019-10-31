@@ -1,6 +1,5 @@
 import { UserExistError } from './../errors/httpErrors';
 import passport from 'passport';
-import IUser from '../dtos/userDtos/userForAuth.dto';
 import HttpStatus from 'http-status-codes';
 import { Request, Response, NextFunction } from 'express';
 import * as service from '../services/user.service';
@@ -10,7 +9,7 @@ function login(req: Request, res: Response) {
   passport.authenticate(
     'local',
     { session: false },
-    async (err, user: IUser, info) => {
+    async (err, user, info) => {
       if (err || !user) {
         return res.status(HttpStatus.BAD_REQUEST).send({ info });
       }
@@ -22,8 +21,8 @@ function login(req: Request, res: Response) {
             .send({ info: 'failed to login' });
         }
       });
-
-      return res.status(HttpStatus.OK).send(user.toAuthJSON());
+      user = user.toAuthJSON();
+      return res.status(HttpStatus.OK).send({ jwtToken: user.token });
     }
   )(req, res);
 }

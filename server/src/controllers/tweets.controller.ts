@@ -1,13 +1,15 @@
+import { IStarredTweet } from './../dtos/tweets/starredTweet.dto';
 import {
   NotFoundError,
   NotOwnerError,
   InternalError
 } from './../errors/httpErrors';
 import { ITweet } from './../dtos/tweets/Tweet.dto';
-import { IUser } from './../models/User.model';
 import { Request, Response, NextFunction } from 'express';
 import { OK, CREATED, NO_CONTENT } from 'http-status-codes';
 import * as tweetService from '../services/tweet.service';
+import IUser from '../dtos/userDtos/IUser.dto';
+import IUserWithStarred from '../dtos/userDtos/IUserForStarred.dto';
 const MongoOkResponse = 1;
 
 export async function addTweet(
@@ -31,8 +33,13 @@ export async function AllTweets(
   next: NextFunction
 ) {
   try {
-    const user = req.user as IUser;
-    const tweets = await tweetService.getAllTweets(user);
+    const user = req.user as IUserWithStarred;
+    let tweets: ITweet[] | IStarredTweet[];
+    if (user) {
+      tweets = await tweetService.getAllTweetsIncludeStarredFlag(user);
+    } else {
+      tweets = await tweetService.getAllTweets();
+    }
 
     return res.status(CREATED).send(tweets);
   } catch (error) {

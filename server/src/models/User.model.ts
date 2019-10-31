@@ -4,13 +4,11 @@ import uniqueValidator from 'mongoose-unique-validator';
 import CryptoJS from 'crypto-js';
 import jwt from 'jsonwebtoken';
 import * as config from '../config';
+import IUser from '../dtos/userDtos/IUser.dto';
+import { stringify } from 'querystring';
 
-export interface IUser extends Document {
+export interface IUserModel extends IUser, Document {
   _id: string;
-  shortid: string;
-  username: string;
-  email: string;
-  image: string;
   starred: string[];
   validPassword: (password: string) => boolean;
   generateJWT: () => string;
@@ -18,8 +16,6 @@ export interface IUser extends Document {
   toAuthJSON: () => {};
   hash: string;
   token: string;
-  registrationDate: Date;
-  lastLogin: Date;
 }
 
 const UserSchema: Schema = new Schema(
@@ -96,6 +92,7 @@ UserSchema.methods.toAuthJSON = function() {
     username: this.username,
     email: this.email,
     _id: this._id,
+    shortid: this.shortid,
     token: this.generateJWT(),
     image: this.image,
     registrationDate: this.createdAt,
@@ -103,4 +100,4 @@ UserSchema.methods.toAuthJSON = function() {
   };
 };
 
-export default mongoose.model<IUser>('User', UserSchema);
+export default mongoose.model<IUserModel>('User', UserSchema);

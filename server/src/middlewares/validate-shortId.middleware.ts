@@ -12,8 +12,6 @@ export function validateShortId(
   if (!shortid.isValid(id)) {
     throw new BadIdFormatError('ID not valid');
   } else {
-    console.log('id valid');
-
     next();
   }
 }

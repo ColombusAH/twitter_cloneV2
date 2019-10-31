@@ -11,7 +11,7 @@ const TweetSchema: Schema = new Schema(
     shortid: { type: String, default: shortid.generate(), index: true },
     authorDetails: {
       _id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-      shortid: String,
+      shortid: { type: String, index: true },
       image: String
     },
     text: { type: String, required: true, maxlength: 240 },

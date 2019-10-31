@@ -13,12 +13,12 @@ router
     passport.authenticate('jwt', { session: false }),
     validateTweetText,
     tweetsController.addTweet
-  )
+  )// requirement 6
   .get(
     passport.authenticate(['jwt', 'anonymous'], { session: false }),
     tweetsController.AllTweets
   );
-
+//requirement 7
 router
   .route('/:id')
   .delete(

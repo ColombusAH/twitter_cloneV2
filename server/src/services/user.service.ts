@@ -1,22 +1,24 @@
-import User, { IUser } from '../models/User.model';
+import { IUserModel } from './../models/User.model';
+import UserModel from '../models/User.model';
+import IUser from '../dtos/userDtos/IUser.dto';
 
 export async function findUserByEmail(email: string) {
-  const user = await User.findOne({ email });
+  const user = await UserModel.findOne({ email });
   return user;
 }
 
 export async function findUserById(id: string) {
-  const user = await User.findOne({ _id: id });
+  const user = await UserModel.findOne({ _id: id });
   return user;
 }
 
 export async function findUserByShordId(id: string) {
-  const user = await User.findOne({ shortid: id });
+  const user = await UserModel.findOne({ shortid: id });
   return user;
 }
 
 export async function findUserByUsername(username: string) {
-  const user: IUser = await User.findOne({ username });
+  const user: IUser = await UserModel.findOne({ username });
   return user;
 }
 
@@ -26,7 +28,7 @@ export async function createUser(
   password: string,
   image: string
 ) {
-  let user: IUser = new User({
+  let user: IUserModel = new UserModel({
     username,
     email,
     image
