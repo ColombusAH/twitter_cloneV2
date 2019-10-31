@@ -12,6 +12,18 @@ export async function createTweet(user: IUser, text: string) {
   return tweet;
 }
 
+export async function getTweetByShortId(shortid: string) {
+  const tweet = await TweetModel.findOne({ shortid });
+  return tweet;
+}
+
+export async function deleteTweetByShortId(shortid: string) {
+  const res = await TweetModel.deleteOne({ shortid });
+  console.log(res);
+
+  return res;
+}
+
 export async function getAllTweets(user: IUser) {
   const tweetsData = (await TweetModel.find({})) as Partial<IStarredTweet>[];
   const starredTweets = [] as IStarredTweet[];

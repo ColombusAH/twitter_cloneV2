@@ -40,8 +40,6 @@ export function initializePassport() {
       },
       async (jwtPayload, done) => {
         try {
-          console.log('12');
-
           const user = await service.findUserById(jwtPayload.id);
           if (!user) {
             done(null, false);

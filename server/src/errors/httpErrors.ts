@@ -1,4 +1,4 @@
-import { NOT_FOUND, BAD_REQUEST, CONFLICT } from 'http-status-codes';
+import { NOT_FOUND, BAD_REQUEST, CONFLICT, FORBIDDEN, INTERNAL_SERVER_ERROR } from 'http-status-codes';
 
 export abstract class HttpError extends Error {
   constructor(public status: number, public message: string) {
@@ -29,5 +29,17 @@ export class BadIdFormatError extends HttpError {
 export class UserExistError extends HttpError {
   constructor(messsage: string) {
     super(CONFLICT, messsage);
+  }
+}
+
+export class NotOwnerError extends HttpError {
+  constructor(messsage: string) {
+    super(FORBIDDEN, messsage);
+  }
+}
+
+export class InternalError extends HttpError {
+  constructor(messsage: string) {
+    super(INTERNAL_SERVER_ERROR, messsage);
   }
 }

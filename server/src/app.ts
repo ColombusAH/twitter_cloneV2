@@ -8,7 +8,7 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import * as passport from './config/passport';
 import router from './routes';
-import { ErrorMiddleware } from './middlewares/errorMiddleware.middleware';
+import { ErrorMiddleware } from './middlewares/HttpErrorHandlerMiddleware.middleware';
 
 const app = express();
 

@@ -1,7 +1,8 @@
+import passport from 'passport';
 import express from 'express';
 import { validateTweetText } from '../../middlewares/auth/tweet-validation.middleware';
 import * as tweetsController from '../../controllers/tweets.controller';
-import passport from 'passport';
+import { validateShortId } from '../../middlewares/validate-shortId.middleware';
 
 const router = express.Router();
 
@@ -18,4 +19,11 @@ router
     tweetsController.AllTweets
   );
 
+router
+  .route('/:id')
+  .delete(
+    passport.authenticate('jwt', { session: false }),
+    validateShortId,
+    tweetsController.deleteTweet
+  );
 export default router;
