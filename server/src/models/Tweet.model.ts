@@ -1,22 +1,12 @@
 import { ITweet } from './../dtos/tweets/Tweet.dto';
-import mongoose from 'mongoose';
+import mongoose, { Schema, Document } from 'mongoose';
 import shortid from 'shortid';
 
-export interface ITweet extends mongoose.Document {
+export interface ITweetModel extends ITweet, Document {
   _id: string;
-  shortid: string;
-  authorDetails: {
-    _id: string;
-    shortid: string;
-    image: string;
-  };
-  text: string;
-  stars: number;
-  createdAt: Date;
-  starredByMe?: boolean;
 }
 
-const TweetSchema: mongoose.Schema = new mongoose.Schema(
+const TweetSchema: Schema = new Schema(
   {
     shortid: { type: String, default: shortid.generate(), index: true },
     authorDetails: {
@@ -30,4 +20,4 @@ const TweetSchema: mongoose.Schema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export default mongoose.model<ITweet>('Tweet', TweetSchema);
+export default mongoose.model<ITweetModel>('Tweet', TweetSchema);

@@ -1,21 +1,10 @@
+import { ITweet } from './../dtos/tweets/Tweet.dto';
+import { IStarredTweet } from './../dtos/tweets/starredTweet.dto';
+
 import { IUser } from './../models/User.model';
 import { IAuthorDetails } from '../dtos/tweets/authorDetails.dto';
 import TweetModel from '../models/Tweet.model';
 import _ from 'lodash';
-
-interface tweet2Return {
-  _id: string;
-  shortid: string;
-  authorDetails: {
-    _id: string;
-    shortid: string;
-    image: string;
-  };
-  text: string;
-  stars: number;
-  createdAt: Date;
-  starredByMe: boolean;
-}
 
 export async function createTweet(user: IUser, text: string) {
   const authorDetails: IAuthorDetails = user;
@@ -24,28 +13,26 @@ export async function createTweet(user: IUser, text: string) {
 }
 
 export async function getAllTweets(user: IUser) {
-  const tweets = await TweetModel.find({});
-  console.log(tweets);
-
-  const starredTweets = [];
+  const tweetsData = (await TweetModel.find({})) as Partial<IStarredTweet>[];
+  const starredTweets = [] as IStarredTweet[];
   if (user) {
-    _.each(tweets, (tweet, index) => {
-      // const starred =
-      const t: tweet2Return = {
-        _id: tweet._id,
-        shortid: tweet.shortid,
-        authorDetails: tweet.authorDetails,
-        text: tweet.text,
-        stars: tweet.stars,
-        createdAt: tweet.createdAt,
-        starredByMe: false
-      };
-      t.starredByMe =
-        _.findIndex(user.starred, tweetId => tweetId === tweet._id) !== -1;
-
-      starredTweets.push(t);
+    const tweetsIdStarredByUser = user.starred;
+    _.each(tweetsData, (tweet, index) => {
+      _.each(tweetsIdStarredByUser, id => {
+        const starredTweet: IStarredTweet = {
+          _id: tweet._id,
+          shortid: tweet._id,
+          text: tweet.text,
+          stars: tweet.stars,
+          createdAt: tweet.createdAt,
+          authorDetails: tweet.authorDetails,
+          starredByMe: id.toString() === tweet._id.toString()
+        };
+        starredTweets.push(starredTweet);
+      });
     });
+    return starredTweets;
+  } else {
+    return tweetsData;
   }
-
-  return starredTweets;
 }

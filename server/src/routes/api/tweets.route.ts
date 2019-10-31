@@ -14,7 +14,7 @@ router
     tweetsController.addTweet
   )
   .get(
-    passport.authenticate('jwt-optional', { session: false }),
+    passport.authenticate(['jwt', 'anonymous'], { session: false }),
     tweetsController.AllTweets
   );
 

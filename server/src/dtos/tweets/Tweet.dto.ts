@@ -1,5 +1,4 @@
-import mongoose from 'mongoose';
-export interface ITweet extends mongoose.Document {
+export interface ITweet {
   _id: string;
   shortid: string;
   authorDetails: {
@@ -10,5 +9,4 @@ export interface ITweet extends mongoose.Document {
   text: string;
   stars: number;
   createdAt: Date;
-  starredByMe?: boolean;
 }

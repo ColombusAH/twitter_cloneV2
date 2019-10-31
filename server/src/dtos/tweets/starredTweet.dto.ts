@@ -1,5 +1,5 @@
 import { ITweet } from './Tweet.dto';
 
-export interface ITweetForStarred extends ITweet {
+export interface IStarredTweet extends ITweet {
   starredByMe: boolean;
 }

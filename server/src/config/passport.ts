@@ -1,6 +1,8 @@
+import * as AnonymousStrategy from 'passport-anonymous';
 import passport from 'passport';
 import passportLocal from 'passport-local';
 import passportJwt from 'passport-jwt';
+
 
 import * as config from '../config';
 import * as service from '../services/user.service';
@@ -38,6 +40,8 @@ export function initializePassport() {
       },
       async (jwtPayload, done) => {
         try {
+          console.log('12');
+
           const user = await service.findUserById(jwtPayload.id);
           if (!user) {
             done(null, false);
@@ -50,21 +54,5 @@ export function initializePassport() {
     )
   );
 
-  passport.use(
-    'jwt-optional',
-    new JwtStrategy(
-      {
-        jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-        secretOrKey: config.SECRET
-      },
-      async (jwtPayload, done) => {
-        try {
-          const user = await service.findUserById(jwtPayload.id);
-          done(null, user);
-        } catch (error) {
-          done(error);
-        }
-      }
-    )
-  );
+ passport.use(new AnonymousStrategy.Strategy());
 }
