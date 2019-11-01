@@ -1,3 +1,5 @@
+import { User } from './../dtos/userDtos/IUser.dto';
+import { UserWithStarredTweets } from './../dtos/userDtos/IUserForStarred.dto';
 import { IStarredTweet } from './../dtos/tweets/starredTweet.dto';
 import {
   NotFoundError,
@@ -10,6 +12,10 @@ import { OK, CREATED, NO_CONTENT } from 'http-status-codes';
 import * as tweetService from '../services/tweet.service';
 import IUser from '../dtos/userDtos/IUser.dto';
 import IUserWithStarred from '../dtos/userDtos/IUserForStarred.dto';
+import {
+  pullTweetIdToUserStarredArray,
+  pushTweetIdToUserStarredArray
+} from '../services/user.service';
 const MongoOkResponse = 1;
 
 export async function addTweet(
@@ -19,7 +25,7 @@ export async function addTweet(
 ) {
   try {
     const { text } = req.body;
-    const user = req.user as IUser;
+    const user = new User(req.user);
     const tweet = await tweetService.createTweet(user, text);
     return res.status(CREATED).send(tweet);
   } catch (error) {
@@ -70,6 +76,38 @@ export async function deleteTweet(
     }
 
     return res.sendStatus(NO_CONTENT);
+  } catch (error) {
+    next(error);
+  }
+}
+
+export async function starToggleTweet(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const tweetShortId = req.params.id;
+    const user = new UserWithStarredTweets(req.user);
+    const tweet = await tweetService.getTweetByShortId(tweetShortId);
+    if (!tweet) {
+      throw new NotFoundError('Tweet not found');
+    }
+
+    const alreadyStarred =
+      user.starred.findIndex(id => id === tweet._id.toString()) !== -1;
+
+    if (alreadyStarred) {
+      tweetService.decrementTweetStarsById(tweet._id);
+      pullTweetIdToUserStarredArray(tweet._id, user._id);
+      return res
+        .status(OK)
+        .send({ stars: tweet.stars - 1, starredByMe: false });
+    } else {
+      tweetService.incrementTweetStarsById(tweet._id);
+      pushTweetIdToUserStarredArray(tweet._id, user._id);
+      return res.status(OK).send({ stars: tweet.stars + 1, starredByMe: true });
+    }
   } catch (error) {
     next(error);
   }

@@ -42,7 +42,12 @@ const PORT = config.PORT;
 async function listen() {
   await mongoose.connect(
     config.DB_CONNECT,
-    { useNewUrlParser: true, useUnifiedTopology: true },
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true,
+      useFindAndModify: false
+    },
     () => console.log('connected to DB')
   );
   app.listen(PORT, () => {

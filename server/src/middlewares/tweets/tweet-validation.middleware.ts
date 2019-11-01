@@ -1,4 +1,4 @@
-import { InputValidationError } from './../../errors/httpErrors';
+import { InputValidationError } from '../../errors/httpErrors';
 import { Request, Response, NextFunction } from 'express';
 import Joi from '@hapi/joi';
 
@@ -17,8 +17,6 @@ export function validateTweetText(
   next: NextFunction
 ) {
   const text = req.body;
-  console.log(req.body);
-
   const { error, value } = tweetBodySchema.validate(text);
 
   if (error) {

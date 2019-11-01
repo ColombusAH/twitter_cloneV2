@@ -68,3 +68,22 @@ function getTweetsWithStarredFlagDataByUser(
   });
   return starredTweets;
 }
+
+export async function incrementTweetStarsById(id: string) {
+  const res = await TweetModel.findOneAndUpdate(
+    { _id: id },
+    { $inc: { stars: 1 } },
+    { new: true }
+  );
+  return res;
+}
+
+export async function decrementTweetStarsById(id: string) {
+  const res = await TweetModel.findOneAndUpdate(
+    { _id: id },
+    { $inc: { stars: -1 } },
+    { new: true }
+  );
+  console.log(res);
+  return res;
+}

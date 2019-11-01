@@ -22,6 +22,6 @@ export class User implements IUser {
     this.username = userResponse.username;
     this.image = userResponse.image;
     this.registrationDate = userResponse.createdAt;
-    this.lastLogin = userResponse.lastLogin;
+    this.lastLogin = userResponse.updatedAt;
   }
 }
