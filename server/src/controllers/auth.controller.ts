@@ -22,7 +22,9 @@ function login(req: Request, res: Response) {
         }
       });
       user = user.toAuthJSON();
-      return res.status(HttpStatus.OK).send({ jwtToken: user.token });
+      return res
+        .status(HttpStatus.OK)
+        .send({ jwtToken: user.token, id: user.shortid });
     }
   )(req, res);
 }

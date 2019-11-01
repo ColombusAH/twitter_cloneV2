@@ -1,4 +1,4 @@
-import { AuthGuardService } from './core/services/auth-guard.service';
+import { AuthGuardService } from './core/guards/auth-guard.service';
 import { ProfileComponent } from './core/pages/profile/profile.component';
 import { NoAuthGuardService } from './auth/no-auth-guard.service';
 import { AboutComponent } from './core/pages/about/about.component';

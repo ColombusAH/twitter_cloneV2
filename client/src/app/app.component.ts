@@ -1,15 +1,15 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { UserService } from './core/services/user.service';
+import { Component } from '@angular/core';
+import { UserService } from './core/services/auth.service';
 
 @Component({
-  // changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  userLoggedIn: boolean;
   constructor(private userService: UserService) {}
-  title = 'shopMaterialVersion';
+  title = 'Tweeter';
 
   logout(sidenavbar) {
     sidenavbar.toggle();

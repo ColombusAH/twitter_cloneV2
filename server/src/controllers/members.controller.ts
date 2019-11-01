@@ -10,7 +10,7 @@ import IUser from '../dtos/userDtos/IUser.dto';
 import IUserWithStarred from '../dtos/userDtos/IUserForStarred.dto';
 
 // requirement 3
-export async function getMemberByID(
+export async function getMemberByShortID(
   req: Request,
   res: Response,
   next: NextFunction

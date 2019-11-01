@@ -6,7 +6,7 @@ import passport from 'passport';
 const router = express.Router();
 
 //requirement 3
-router.route('/:id').get(validateShortId, memberController.getMemberByID);
+router.route('/:id').get(validateShortId, memberController.getMemberByShortID);
 
 // requirement 4
 router

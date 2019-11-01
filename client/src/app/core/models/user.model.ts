@@ -1,7 +1,6 @@
 export interface IUser {
-  username: string;
-  token: string;
-  image: string;
+  jwtToken: string;
+  id: string;
 }
 
 export interface IUserForLogin {

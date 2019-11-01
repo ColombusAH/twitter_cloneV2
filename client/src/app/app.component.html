@@ -10,7 +10,7 @@
   <mat-sidenav-container fxFlexFill>
     <mat-sidenav #sidenav role="navigation">
       <mat-nav-list>
-        <div *mobxAutorun>
+        <div>
           <mat-list-item [routerLink]="['/home']" (click)="sidenav.toggle()" routerLinkActive="link-active"
             [routerLinkActiveOptions]="{exact:true}">
             <mat-icon>home</mat-icon>Home
@@ -20,18 +20,18 @@
             <mat-icon>info</mat-icon> About
           </mat-list-item>
 
-          <mat-list-item *ngIf="userService.isLoggedIn" [routerLink]="['/profile']" (click)="sidenav.toggle()"
+          <mat-list-item *ngIf="(userService.isLoggedIn$ | async)" [routerLink]="['/profile']" (click)="sidenav.toggle()"
             routerLinkActive="link-active">
             <mat-icon>account_circle</mat-icon> Profile
           </mat-list-item>
 
 
-          <mat-list-item *ngIf="!userService.isLoggedIn" [routerLink]="['/auth/login']" (click)="sidenav.toggle()"
+          <mat-list-item *ngIf="!(userService.isLoggedIn$ | async)" [routerLink]="['/auth/login']" (click)="sidenav.toggle()"
             routerLinkActive="link-active">
             <mat-icon>person</mat-icon> Login/Register
           </mat-list-item>
 
-          <mat-list-item *ngIf="userService.isLoggedIn" (click)="logout(sidenav);" [routerLink]="['/home']">
+          <mat-list-item *ngIf="(userService.isLoggedIn$ | async)" (click)="logout(sidenav);" [routerLink]="['/home']">
             <mat-icon>person</mat-icon> Logout
           </mat-list-item>
         </div>
