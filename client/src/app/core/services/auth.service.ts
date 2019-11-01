@@ -3,7 +3,7 @@ import { IUserForLogin, IUserForRegister } from '../models/user.model';
 import { JwtService } from './jwt.service';
 import { IUser } from '../models/user.model';
 import { Injectable } from '@angular/core';
-import { take, map } from 'rxjs/operators';
+import { take, map, distinctUntilChanged } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 
@@ -14,14 +14,13 @@ export class UserService {
   private isLoggedInSubject: BehaviorSubject<boolean>;
   public isLoggedIn$: Observable<boolean>;
 
-  private readonly apiUrl = 'http://localhost:3000/api';
-
   constructor(private http: HttpClient, private jwtService: JwtService) {
     this.isLoggedInSubject = new BehaviorSubject(
       this.jwtService.tokenIsValid()
     );
-    this.isLoggedIn$ = this.isLoggedInSubject.asObservable();
-    console.log('auth service');
+    this.isLoggedIn$ = this.isLoggedInSubject
+      .asObservable()
+      .pipe(distinctUntilChanged());
   }
 
   authentication(type: string, creds: IUserForLogin | IUserForRegister) {
