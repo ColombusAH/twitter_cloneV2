@@ -4,7 +4,11 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:3000/api'
+  apiUrl: 'http://localhost:3000/api',
+  authUrl: 'http://localhost:3000/api/auth/',
+  memberUrl: 'http://localhost:3000/api/members/',
+  tweetUrl: 'http://localhost:3000/api/tweets/',
+  idKey: 'id'
 };
 
 /*

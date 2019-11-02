@@ -1,3 +1,5 @@
+import { IUser } from './../models/user.model';
+import { environment } from './../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
@@ -7,7 +9,7 @@ import { Injectable } from '@angular/core';
 export class ProfileService {
   constructor(private http: HttpClient) {}
 
-  // getProfile() {
-  //   this.http.get
-  // }
+  getProfile(id: string) {
+    return this.http.get<IUser>(environment.memberUrl + `${id}`);
+  }
 }

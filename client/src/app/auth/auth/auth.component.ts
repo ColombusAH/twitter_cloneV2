@@ -1,4 +1,4 @@
-import { UserService } from '../../core/services/auth.service';
+import { UserService } from '../../core/services/user.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import {
   FormBuilder,
@@ -107,6 +107,8 @@ export class AuthComponent implements OnInit, OnDestroy {
               this.errorMessage = 'Email or Password are wrong';
             } else if (this.isRegisterMode && errData.status === CONFLICT) {
               this.errorMessage = `It's look like that you already have an account`;
+            } else {
+              this.errorMessage = errData;
             }
           }
         )

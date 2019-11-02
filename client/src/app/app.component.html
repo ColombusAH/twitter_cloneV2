@@ -20,20 +20,23 @@
             <mat-icon>info</mat-icon> About
           </mat-list-item>
 
-          <mat-list-item *ngIf="(userService.isLoggedIn$ | async)" [routerLink]="['/profile']" (click)="sidenav.toggle()"
-            routerLinkActive="link-active">
-            <mat-icon>account_circle</mat-icon> Profile
-          </mat-list-item>
+          <div *ngIf="(userService.currentUser$ | async) as user">
+            <mat-list-item *ngIf="(userService.isLoggedIn$ | async)" [routerLink]="['/profile/', user.shortid]"
+              (click)="sidenav.toggle()" routerLinkActive="link-active">
+              <mat-icon>account_circle</mat-icon> Profile
+            </mat-list-item>
 
-
-          <mat-list-item *ngIf="!(userService.isLoggedIn$ | async)" [routerLink]="['/auth/login']" (click)="sidenav.toggle()"
-            routerLinkActive="link-active">
-            <mat-icon>person</mat-icon> Login/Register
-          </mat-list-item>
-
+          </div>
           <mat-list-item *ngIf="(userService.isLoggedIn$ | async)" (click)="logout(sidenav);" [routerLink]="['/home']">
             <mat-icon>person</mat-icon> Logout
           </mat-list-item>
+
+          <mat-list-item *ngIf="!(userService.isLoggedIn$ | async)" [routerLink]="['/auth/login']"
+            (click)="sidenav.toggle()" routerLinkActive="link-active">
+            <mat-icon>person</mat-icon> Login/Register
+          </mat-list-item>
+
+
         </div>
       </mat-nav-list>
     </mat-sidenav>

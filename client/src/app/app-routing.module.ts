@@ -1,3 +1,4 @@
+import { ProfileResolverService } from './core/resolvers/profile-resolver.service';
 import { AuthGuardService } from './core/guards/auth-guard.service';
 import { ProfileComponent } from './core/pages/profile/profile.component';
 import { NoAuthGuardService } from './auth/no-auth-guard.service';
@@ -10,9 +11,10 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'about', component: AboutComponent },
   {
-    path: 'profile',
+    path: 'profile/:id',
     component: ProfileComponent,
-    canActivate: [AuthGuardService]
+    canActivate: [AuthGuardService],
+    resolve: [ProfileResolverService]
   },
   {
     path: 'auth',

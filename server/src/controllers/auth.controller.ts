@@ -1,3 +1,4 @@
+import { User } from './../dtos/userDtos/IUser.dto';
 import { UserExistError } from './../errors/httpErrors';
 import passport from 'passport';
 import HttpStatus from 'http-status-codes';
@@ -21,10 +22,11 @@ function login(req: Request, res: Response) {
             .send({ info: 'failed to login' });
         }
       });
-      user = user.toAuthJSON();
+      const { token } = user.toAuthJSON();
+      user = new User(user);
       return res
         .status(HttpStatus.OK)
-        .send({ jwtToken: user.token, id: user.shortid });
+        .send({ jwtToken: token, user: user });
     }
   )(req, res);
 }
