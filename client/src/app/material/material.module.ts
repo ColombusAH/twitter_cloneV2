@@ -57,7 +57,8 @@ const MaterialComponents = [
   MatChipsModule,
   MatBadgeModule,
   MatDialogModule,
-  MatRadioModule
+  MatRadioModule,
+  MatDividerModule
 ];
 
 @NgModule({
