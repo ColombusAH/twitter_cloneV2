@@ -14,7 +14,7 @@ const routes: Routes = [
     path: 'profile/:id',
     component: ProfileComponent,
     canActivate: [AuthGuardService],
-    resolve: [ProfileResolverService]
+    resolve: { userProfile: ProfileResolverService }
   },
   {
     path: 'auth',

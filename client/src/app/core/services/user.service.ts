@@ -4,9 +4,9 @@ import { IUserForLogin, IUserForRegister } from '../models/user.model';
 import { JwtService } from './jwt.service';
 import { IUser } from '../models/user.model';
 import { Injectable } from '@angular/core';
-import { take, map, distinctUntilChanged } from 'rxjs/operators';
+import { take, map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +25,7 @@ export class UserService {
   ) {
     const userid = localStorage.getItem(environment.idKey);
     if (jwtService.tokenIsValid() && userid) {
+      this.isLoggedInSubject.next(true);
       this.profileService
         .getProfile(userid)
         .pipe(
@@ -32,7 +33,6 @@ export class UserService {
           map(user => user)
         )
         .subscribe(user => {
-          console.log(user);
           this.currentUserSubject.next(user);
         });
     }

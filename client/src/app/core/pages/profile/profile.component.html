@@ -1,3 +1,24 @@
-<div *ngIf="(profile$ | async) as profile">
-    <h1>profile.username</h1>
+<div>
+    <div *ngIf="userProfile">
+        <mat-card class="profile-card">
+            <img mat-card-avatar src="assets/rick.jpeg" class="avatar-img">
+            <mat-card-content>
+                <div class="user-details">
+                    <div>
+                        
+                        <h1 id="username">{{userProfile.username | titlecase}}</h1>
+                    </div>
+                    <div class="detail">
+                        <label for="registrationDate">With us from:</label>
+                        <span id="registrationDate">{{userProfile.registrationDate | date }}</span>
+                    </div>
+                    <div class="detail">
+                        <label for="lastLoginDate">Last time seen:</label>
+                        <span id="lastLoginDate">{{userProfile.lastLogin | date}}</span>
+                    </div>
+
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
 </div>

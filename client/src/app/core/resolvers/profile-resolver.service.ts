@@ -1,3 +1,5 @@
+import { IUser } from './../models/user.model';
+import { environment } from './../../../environments/environment';
 import { take, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { ProfileService } from './../services/profile.service';
@@ -20,17 +22,18 @@ export class ProfileResolverService
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): IProfile | Observable<IProfile> {
-    return this.profileService.getProfile('rlE7n0uK').pipe(
-      map(profile => {
-        console.log(profile);
-
-        if (profile) {
-          return profile as IProfile;
-        } else {
-          this.router.navigate(['/']);
-          return null;
-        }
-      })
-    );
+    return this.profileService
+      .getProfile(route.paramMap.get(environment.idKey))
+      .pipe(
+        take(1),
+        map(userProfile => {
+          if (userProfile) {
+            return userProfile as IUser;
+          } else {
+            this.router.navigate(['/']);
+            return null;
+          }
+        })
+      );
   }
 }

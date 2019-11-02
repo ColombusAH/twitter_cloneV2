@@ -11,12 +11,10 @@ export class NoAuthGuardService implements CanActivate {
 
   canActivate() {
     let response = false;
-    this.userService
-      .isLoggedIn$
-      .pipe(take(1))
-      .subscribe(userLoggedIn => {
-        response = userLoggedIn;
-      });
+    this.userService.isLoggedIn$.pipe(take(1)).subscribe(userLoggedIn => {
+      response = userLoggedIn;
+      console.log(response);
+    });
     return !response;
   }
 }
