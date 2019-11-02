@@ -1,0 +1,46 @@
+.avatar-img {
+  height: 10%;
+  width: 10%;
+}
+
+.profile-card {
+  display: flex;
+}
+
+.user-details {
+  margin-left: 1.5em;
+}
+.detail {
+  display: flex;
+  flex-direction: row;
+  font-size: 1.7em;
+  margin-bottom: 0.8em;
+}
+
+.detail label {
+  margin-right: 0.6em;
+}
+
+@media screen and (max-width: 992px) {
+  .avatar-img {
+    height: 30%;
+    width: 30%;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .avatar-img {
+    height: 30%;
+    width: 30%;
+  }
+
+  .detail {
+    font-size: 1.3em;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .detail {
+    font-size: 1em;
+  }
+}

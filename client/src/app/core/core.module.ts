@@ -5,9 +5,10 @@ import { HomeComponent } from './pages/home/home.component';
 import { AboutComponent } from './pages/about/about.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ProfileCardComponent } from './components/profile-card/profile-card.component';
 
 @NgModule({
-  declarations: [HomeComponent, AboutComponent, ProfileComponent],
+  declarations: [HomeComponent, AboutComponent, ProfileComponent, ProfileCardComponent],
   imports: [CommonModule, FormsModule, ReactiveFormsModule, MaterialModule],
   exports: [FormsModule, ReactiveFormsModule, MaterialModule]
 })
