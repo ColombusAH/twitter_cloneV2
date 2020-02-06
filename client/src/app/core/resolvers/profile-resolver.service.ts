@@ -1,6 +1,6 @@
 import { IUser } from './../models/user.model';
 import { environment } from './../../../environments/environment';
-import { take, map } from 'rxjs/operators';
+import { take, map, delay } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { ProfileService } from './../services/profile.service';
 import { IProfile } from './../models/profile.model';
@@ -11,22 +11,25 @@ import {
   RouterStateSnapshot,
   Router
 } from '@angular/router';
+import { LoadingSpinnerService } from '../services/loading-spinner.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProfileResolverService
   implements Resolve<IProfile | Observable<IProfile>> {
-  constructor(private profileService: ProfileService, private router: Router) {}
+  constructor(private profileService: ProfileService, private router: Router, private loadingSpinnerService: LoadingSpinnerService) {}
   resolve(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): IProfile | Observable<IProfile> {
+    this.loadingSpinnerService.turSpinnerOnRequest();
     return this.profileService
       .getProfile(route.paramMap.get(environment.idKey))
-      .pipe(
+      .pipe(delay(1000),
         take(1),
         map(userProfile => {
+          this.loadingSpinnerService.turSpinnerOffRequest();
           if (userProfile) {
             return userProfile as IUser;
           } else {

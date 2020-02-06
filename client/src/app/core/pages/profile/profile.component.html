@@ -1,6 +1,14 @@
 <div>
-    <div *ngIf="userProfile">
-        <app-profile-card [profile]="userProfile"></app-profile-card>
-    </div>
-    <app-tweet-card></app-tweet-card>
+  <div *ngIf="userProfile">
+    <app-profile-card [profile]="userProfile"></app-profile-card>
+  </div>
+  <ng-container *ngIf="tweets$ | async as tweetsList">
+    <app-tweet-card
+      *ngFor="let tweet of tweetsList"
+      [title]="userProfile.username"
+      [text]="tweet.text"
+      [createdAt]="tweet.createdAt"
+    >
+    </app-tweet-card>
+  </ng-container>
 </div>

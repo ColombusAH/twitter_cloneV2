@@ -1,4 +1,9 @@
-<div class="wrapper">
+<ng-container *ngIf="spinnerMode$ | async">
+  <div class="loader loadWrapper" >
+    <img class="loader" src="../assets/loader.gif" alt="loader" >
+  </div>
+</ng-container>
+<div class="wrapper fixed-top">
   <mat-toolbar color="primary">
     <mat-toolbar-row>
       <button mat-icon-button (click)="sidenav.toggle()" fxShow="true">

@@ -8,14 +8,15 @@ import { Tweet } from "../models/tweet.model";
   providedIn: "root"
 })
 export class TweetsService {
-  tweetsSubject = new BehaviorSubject<Tweet[]>([]);
-  tweets$: Observable<Tweet[]>;
+  private readonly userTweetsSubject = new BehaviorSubject<Tweet[]>([]);
+  public userTweets$: Observable<Tweet[]>;
 
   constructor(private http: HttpClient) {}
 
-  getTweets(id: string): Observable<Tweet[]> {
-    return (this.tweets$ = this.http.get<Tweet[]>(
+  getUserTweets(id: string): Observable<Tweet[]> {
+    this.userTweets$ = this.http.get<Tweet[]>(
       `${environment.memberUrl}${id}/tweets`
-    ));
+    );
+    return this.userTweets$;
   }
 }

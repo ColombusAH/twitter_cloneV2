@@ -1,6 +1,5 @@
 import { AuthModule } from './auth/auth.module';
 import { CoreModule } from './core/core.module';
-import { MobxAngularModule } from 'mobx-angular';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
@@ -15,7 +14,6 @@ import { JwtModule } from '@auth0/angular-jwt';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MobxAngularModule,
     HttpClientModule,
 
     CoreModule,
